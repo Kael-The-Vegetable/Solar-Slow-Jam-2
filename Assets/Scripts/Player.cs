@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
             //apply stopping force
             var vel = _rigidbody.linearVelocity;
             _rigidbody.linearVelocity = Vector3.SmoothDamp(vel, Vector3.zero, ref stoppingSpeed, StoppingSmoothTime);
-            Debug.Log($"CurrentVel:{stoppingSpeed}");
         }
         else
         {
@@ -73,7 +72,9 @@ public class Player : MonoBehaviour
             _force.z = movement.y;
             _rigidbody.AddForce(_force.normalized * MovementForce, ForceMode.Acceleration);
 
-            _rigidbody.linearVelocity = Vector2.ClampMagnitude(_rigidbody.linearVelocity, MaxVelocity);
+            _rigidbody.linearVelocity = Vector3.ClampMagnitude(_rigidbody.linearVelocity, MaxVelocity);
         }
+
+        _force = Vector3.zero;
     }
 }
