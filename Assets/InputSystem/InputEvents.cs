@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace DefaultNamespace
-{
+
     [CreateAssetMenu(fileName = "InputEvents", menuName = "SO/Input/InputEvents", order = 0)]
     public class InputEvents : ScriptableObject
     {
@@ -14,4 +13,3 @@ namespace DefaultNamespace
         [HideInInspector] public UnityEvent OnInteract;
         [HideInInspector] public UnityEvent OnJump;
     }
-}

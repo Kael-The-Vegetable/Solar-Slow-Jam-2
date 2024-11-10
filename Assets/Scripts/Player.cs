@@ -1,5 +1,4 @@
 using System;
-using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,8 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private InputEvents _inputEvents;
 
     private Rigidbody _rigidbody;
-    
-    
+
 
     /// <summary>
     /// the current movement direction held
@@ -29,8 +27,6 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _inputEvents.OnMove.AddListener(OnMove);
-
-
         _inputEvents.OnJump.AddListener(OnJump);
     }
 
