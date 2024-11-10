@@ -73,7 +73,7 @@ public class Menu : MonoBehaviour
             _isOpen = true;
             OnMenuOpened.Invoke();
             ShowMenu();
-
+             
             if (_selectFirstElement == SelectFirstElementMode.WhenOpened)
             {
                 SelectMenuElement(0);
