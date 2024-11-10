@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9932820c0d92409982a2e0548a7328ed, type: 3}
   m_Name: InputReader
   m_EditorClassIdentifier: 
+  _inputEvents: {fileID: 11400000, guid: 3e0b9628161108249ab12ac339a493cf, type: 2}

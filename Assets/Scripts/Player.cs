@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     public float MaxVelocity = 10;
 
 
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private InputEvents _inputEvents;
 
     private Rigidbody _rigidbody;
+    
+    
 
     /// <summary>
     /// the current movement direction held
@@ -26,9 +28,22 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.MoveEvent += OnMove;
+        _inputEvents.OnMove.AddListener(OnMove);
+
+
+        _inputEvents.OnJump.AddListener(OnJump);
     }
 
+    private void OnDisable()
+    {
+        _inputEvents.OnMove.RemoveListener(OnMove);
+    }
+
+
+    private void OnJump()
+    {
+        _rigidbody.AddForce(0, 10, 0, ForceMode.Impulse);
+    }
 
     private void OnMove(Vector2 obj)
     {
@@ -60,6 +75,7 @@ public class Player : MonoBehaviour
         // making moving opposite directions feel more sluggish
         // but we can use this time to rotate the character model the correct way
 
+        // most of the issues can be solved by editing the velocity directly instead of add force
         if (movement.magnitude == 0 && _rigidbody.linearVelocity.magnitude >= 0.000001f)
         {
             //apply stopping force
