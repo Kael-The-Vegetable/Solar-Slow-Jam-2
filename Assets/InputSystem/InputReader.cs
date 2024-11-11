@@ -9,14 +9,29 @@ public class InputReader : ScriptableObject, InputSystem_Actions.IPlayerActions
     private InputSystem_Actions _playerInput;
     [SerializeField] private InputEvents _inputEvents;
 
-    private void OnEnable()
+
+    public void Setup()
     {
         if (_playerInput is null)
         {
+            Debug.Log("Input reader init");
             _playerInput = new InputSystem_Actions();
 
             _playerInput.Player.SetCallbacks(this);
             _playerInput.Player.Enable();
+        }
+    }
+
+    private void OnEnable()
+    {
+        Setup();
+    }
+
+    private void OnDisable()
+    {
+        if (_playerInput is not null)
+        {
+            _playerInput.Player.Disable();
         }
     }
 
