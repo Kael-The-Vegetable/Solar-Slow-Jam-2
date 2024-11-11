@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private Vector3 _force = Vector3.zero;
 
-    [FormerlySerializedAs("SmoothTime")] public float StoppingSmoothTime = 1;
+   public float StoppingSmoothTime = 1;
 
 
     /// <summary>
