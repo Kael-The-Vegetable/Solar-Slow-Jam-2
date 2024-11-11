@@ -6,13 +6,12 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     public float MovementForce = 2f;
-    public float MaxVelocity = 10;
+    public float JumpVelocity = 5;
 
 
     [SerializeField] private InputEvents _inputEvents;
 
     private Rigidbody _rigidbody;
-
 
     /// <summary>
     /// the current movement direction held
@@ -38,7 +37,10 @@ public class Player : MonoBehaviour
 
     private void OnJump()
     {
-        _rigidbody.AddForce(0, 10, 0, ForceMode.Impulse);
+        if (IsGrounded)
+        {
+            _rigidbody.linearVelocity = new Vector3(0, JumpVelocity, 0);
+        }
     }
 
     private void OnMove(Vector2 obj)
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private Vector3 _force = Vector3.zero;
 
-   public float StoppingSmoothTime = 1;
+    public float StoppingSmoothTime = 1;
 
 
     /// <summary>
@@ -63,30 +65,59 @@ public class Player : MonoBehaviour
     private Vector3 stoppingSpeed = Vector3.zero;
 
 
+    [SerializeField] private bool IsGrounded;
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        // simple physics based character movement with adjustable stopping time. 
-        // Its not perfect as pressing left then right quickly wont cause any velocity damping
-        // making moving opposite directions feel more sluggish
-        // but we can use this time to rotate the character model the correct way
+        // look into this https://catlikecoding.com/unity/tutorials/movement/surface-contact/
+        _force.x = movement.x;
+        _force.z = movement.y;
+        _force.Normalize();
 
-        // most of the issues can be solved by editing the velocity directly instead of add force
-        if (movement.magnitude == 0 && _rigidbody.linearVelocity.magnitude >= 0.000001f)
-        {
-            //apply stopping force
-            var vel = _rigidbody.linearVelocity;
-            _rigidbody.linearVelocity = Vector3.SmoothDamp(vel, Vector3.zero, ref stoppingSpeed, StoppingSmoothTime);
-        }
-        else
-        {
-            _force.x = movement.x;
-            _force.z = movement.y;
-            _rigidbody.AddForce(_force.normalized * MovementForce, ForceMode.Acceleration);
+        _force *= MovementForce;
+        var vel = _rigidbody.linearVelocity;
+        var damp = Vector3.SmoothDamp(vel, _force, ref stoppingSpeed, StoppingSmoothTime);
 
-            _rigidbody.linearVelocity = Vector3.ClampMagnitude(_rigidbody.linearVelocity, MaxVelocity);
-        }
+        damp.y = vel.y;
+        _rigidbody.linearVelocity = damp;
+
 
         _force = Vector3.zero;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        IsGrounded = GroundCheck(other);
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        IsGrounded = GroundCheck(other);
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        IsGrounded = GroundCheck(other);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Returns true if the collision is ground </returns>
+    private bool GroundCheck(Collision collision)
+    {
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            var normal = collision.GetContact(i).normal;
+
+            if (normal.y >= 0.8f)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

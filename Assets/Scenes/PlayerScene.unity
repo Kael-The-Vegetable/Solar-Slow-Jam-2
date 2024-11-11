@@ -1633,10 +1633,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf7f58af79e147908d4598f540a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementForce: 10
-  MaxVelocity: 10
+  MovementForce: 5
+  JumpVelocity: 5
   _inputEvents: {fileID: 11400000, guid: 3e0b9628161108249ab12ac339a493cf, type: 2}
   StoppingSmoothTime: 0.2
+  StartingSmoothTime: 0.2
+  IsGrounded: 0
+  GroundSnapDirection: {x: 0, y: -1, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
