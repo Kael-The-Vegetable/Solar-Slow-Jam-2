@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{842d803b-06b1-4ce0-a347-4e1bdf99d786}">
+		<property name="name">
+			<value>_MetaSFXBus</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{44aad278-b90c-40a4-bf43-b16f120ab62f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c85bbb63-9903-48e7-80ad-66721f9a0323}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{b9b60123-7c0f-4892-9aa4-5b8bed55c309}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{44aad278-b90c-40a4-bf43-b16f120ab62f}">
+		<relationship name="effects">
+			<destination>{e3a55662-a41d-430c-b043-15a43e83c0dc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c85bbb63-9903-48e7-80ad-66721f9a0323}" />
+	<object class="MixerBusFader" id="{e3a55662-a41d-430c-b043-15a43e83c0dc}" />
+</objects>
