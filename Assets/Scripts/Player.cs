@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float MovementForce = 2f;
     public float JumpVelocity = 5;
 
+    [SerializeField] private Camera camera;
 
     [SerializeField] private InputEvents _inputEvents;
 
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     {
         if (IsGrounded)
         {
-            _rigidbody.linearVelocity = new Vector3(0, JumpVelocity, 0);
+            _rigidbody.linearVelocity += new Vector3(0, JumpVelocity, 0);
         }
     }
 
@@ -50,11 +51,6 @@ public class Player : MonoBehaviour
         //  Debug.Log(movement);
     }
 
-
-    /// <summary>
-    /// shitty temp field to avoid calling new() every physics tick
-    /// </summary>
-    private Vector3 _force = Vector3.zero;
 
     public float StoppingSmoothTime = 1;
 
@@ -74,19 +70,28 @@ public class Player : MonoBehaviour
         // look into this https://catlikecoding.com/unity/tutorials/movement/surface-contact/
         // at the very least i should try and get ground snapping and aligning the velocity to the surface you are walking on
         // but a working demo is more important. 
-        _force.x = movement.x;
-        _force.z = movement.y;
-        _force.Normalize();
+        movement.Normalize();
 
-        _force *= MovementForce;
+
+        var camForward = camera.transform.forward;
+        var camRight = camera.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+
+        var dir = camRight * movement.x + camForward * movement.y;
+
+        dir *= MovementForce;
+
         var vel = _rigidbody.linearVelocity;
-        var damp = Vector3.SmoothDamp(vel, _force, ref stoppingSpeed, StoppingSmoothTime);
+        var damp = Vector3.SmoothDamp(vel, dir, ref stoppingSpeed, StoppingSmoothTime);
 
         damp.y = vel.y;
         _rigidbody.linearVelocity = damp;
-
-
-        _force = Vector3.zero;
     }
 
     private void OnCollisionEnter(Collision other)
