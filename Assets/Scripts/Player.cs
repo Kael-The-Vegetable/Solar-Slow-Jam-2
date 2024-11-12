@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         // look into this https://catlikecoding.com/unity/tutorials/movement/surface-contact/
+        // at the very least i should try and get ground snapping and aligning the velocity to the surface you are walking on
+        // but a working demo is more important. 
         _force.x = movement.x;
         _force.z = movement.y;
         _force.Normalize();
