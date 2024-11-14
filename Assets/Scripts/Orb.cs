@@ -57,22 +57,22 @@ public class Orb : MonoBehaviour
 
                 var hitObject = section.RaycastHit.collider.gameObject;
 
-                var receiver = hitObject.GetComponent<OrbReceiver>();
 
                 var surface = hitObject.GetComponent<Surface>();
 
-
-                if (receiver is not null && receiver.ConsumeOrb)
+                // only reflects on objects with a surface
+                if (surface is null)
                 {
-                    // we hit a orb receiver and the line ends here
-                    Debug.Log("Orb hit receiver");
-                    receiver.OnOrbHit.Invoke(this);
                     break;
                 }
 
-                if (surface is not null && surface.AllowOrbReflection == false)
+
+                if (surface.AllowOrbReflection)
                 {
-                    Debug.Log("Orb hit non reflective surface");
+                    surface.OnOrbHit.Invoke(this);
+                }
+                else
+                {
                     break;
                 }
             }
