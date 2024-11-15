@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] private InputEvents _inputEvents;
 
     private Rigidbody _rigidbody;
+    
+
 
     /// <summary>
     /// the current movement direction held

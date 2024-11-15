@@ -1,15 +1,21 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-namespace DefaultNamespace
+
+public class Surface : MonoBehaviour
 {
-    public class Surface : MonoBehaviour
-    {
-        /// <summary>
-        /// this is called every frame the orb hit this surface
-        /// </summary>
-        public UnityEvent<Orb> OnOrbHit;
+    /// <summary>
+    /// called every frame the orb hits this surface
+    /// </summary>
+    [FormerlySerializedAs("OnOrbStay")] public UnityEvent<Surface, Orb> OnOrbHit;
 
-        public bool AllowOrbReflection = false;
-    }
+
+    public bool AllowOrbReflection = false;
+
+
+    // only support for one orb currently
+
+    // a potential shitty way to check if the colliding orb is still colliding with us "staying"
 }
