@@ -52,8 +52,10 @@ public class Orb : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.rotation = Rotator.rotation;
-          
+        if (Rotator is not null)
+        {
+            transform.rotation = Rotator.rotation;
+        }
 
 
         _canCast = false;
