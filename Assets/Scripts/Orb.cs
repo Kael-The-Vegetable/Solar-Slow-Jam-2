@@ -32,10 +32,13 @@ public class Orb : MonoBehaviour
 
     public bool OrbVisibleToSky;
 
+
+    public bool UseRotator = false;
+
     /// <summary>
     /// the transform that we are using to rotate the orb
     /// </summary>
-    public Transform Rotator;
+    public GameObject Rotator;
 
     // used to enable/disable the beam from the orb
     private bool _canCast;
@@ -50,11 +53,11 @@ public class Orb : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Rotator is not null)
+        if (UseRotator)
         {
-            transform.rotation = Rotator.rotation;
+            transform.rotation = Rotator.transform.rotation;
         }
 
 
