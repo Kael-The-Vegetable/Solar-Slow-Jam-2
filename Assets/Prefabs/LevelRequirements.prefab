@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2952110420788231164, guid: bf6567cc4ca612440b9aee7ae179c5c0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4270138935469253890, guid: bf6567cc4ca612440b9aee7ae179c5c0, type: 3}
       propertyPath: camera
       value: 
@@ -256,7 +260,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8113025541937847055, guid: c39c6a9c8db543a4daedee7749ca1c7a, type: 3}
       propertyPath: ShowDebug
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113025541937847055, guid: c39c6a9c8db543a4daedee7749ca1c7a, type: 3}
+      propertyPath: UseRotator
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8113025541937847055, guid: c39c6a9c8db543a4daedee7749ca1c7a, type: 3}
       propertyPath: OnGainSkyLOS.m_PersistentCalls.m_Calls.Array.size
