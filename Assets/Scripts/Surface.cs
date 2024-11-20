@@ -19,5 +19,10 @@ public class Surface : MonoBehaviour
 
     // a potential shitty way to check if the colliding orb is still colliding with us "staying"
 
+    public void ShineOnCrystal(Surface surface, Orb orb)
+    {
+
+        Debug.Log("Shine");
+    }
 
 }
